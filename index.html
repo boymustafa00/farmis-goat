@@ -1,0 +1,310 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>FARMIS | Farm Management Information System</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--bg:#f6f4ee;--card:#fff;--tx:#23301f;--mu:#6b7565;--ac:#1b8a3f;--act:#fff;--bd:#ddd8c8;--dg:#b3261e;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171b15;--card:#20261d;--tx:#e8ecdf;--mu:#9aa592;--ac:#6fbf7d;--act:#10200f;--bd:#363e31;--dg:#f2776f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#171b15;--card:#20261d;--tx:#e8ecdf;--mu:#9aa592;--ac:#6fbf7d;--act:#10200f;--bd:#363e31;--dg:#f2776f;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+header{padding:14px 16px;background:var(--ac);color:var(--act)}h1{margin:0;font-size:20px;letter-spacing:.5px}header p{margin:2px 0 0;opacity:.85;font-size:13px}
+nav{display:flex;gap:6px;overflow-x:auto;padding:10px 16px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
+nav button{white-space:nowrap;text-align:left}
+@media(min-width:800px){.shell{display:flex;align-items:flex-start}nav{flex-direction:column;width:210px;flex:none;padding:14px 10px;background:var(--card);border-right:1px solid var(--bd);min-height:100vh;overflow:visible}nav button{width:100%}main{flex:1;min-width:0;max-width:none;padding-top:14px}}
+button,.btn{font:inherit;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:7px 12px;border-radius:8px;cursor:pointer}
+button.on,button.pri{background:var(--ac);color:var(--act);border-color:var(--ac)}button.del{color:var(--dg)}
+main{padding:6px 16px 40px;max-width:1100px;margin:auto}
+#auth{display:none;grid-template-columns:1.05fr 1fr;min-height:100vh;min-height:100dvh}
+.al{background:linear-gradient(135deg,#0e5530 0%,#1b8a3f 60%,#25a65a 100%);color:#fff;padding:48px 72px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.al::after{content:"";position:absolute;right:-120px;bottom:-140px;width:420px;height:420px;border-radius:50%;border:70px solid rgba(255,255,255,.07)}
+.br{display:flex;gap:14px;align-items:center}.lg{width:58px;height:58px;border-radius:16px;background:#fff;display:grid;place-items:center}
+.br b{font-size:24px;display:block;line-height:1.1}.br span{font-size:14px;opacity:.9}
+.al h2{font-size:44px;line-height:1.1;margin:70px 0 22px;max-width:520px;letter-spacing:-1px}
+.al .ds{font-size:19px;line-height:1.6;opacity:.92;max-width:600px;margin:0}
+.tl{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:40px;max-width:660px;position:relative;z-index:1}
+.tl div{display:flex;gap:12px;align-items:center;padding:18px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.1);border-radius:14px;font-weight:600}
+.ic{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.cp{margin-top:auto;padding-top:30px;font-size:15px;opacity:.9}
+.ar{display:grid;place-items:center;padding:24px;background:var(--bg)}
+.ac{background:var(--card);border-radius:28px;padding:56px 48px;width:100%;max-width:492px;box-shadow:0 20px 60px rgba(0,0,0,.08);border:1px solid var(--bd)}
+.ac h1{text-align:center;font-size:34px;margin:0 0 12px;letter-spacing:-.5px}.ac .sub{text-align:center;color:var(--mu);font-size:18px;margin:0 0 34px}
+.ac label{font-size:16px;font-weight:600;color:var(--tx);margin-bottom:18px;gap:8px}
+.fi{position:relative}.fi>svg{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--mu)}
+.fi input{padding:0 52px;height:56px;border-radius:16px;font-size:17px;font-weight:400}
+.eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);border:0;background:none;padding:8px;color:var(--tx)}
+.go{width:100%;height:56px;border-radius:16px;background:linear-gradient(#1b8a3f,#15753a);color:#fff;font-size:18px;font-weight:700;border:0;box-shadow:0 8px 20px rgba(27,138,63,.3);display:flex;align-items:center;justify-content:center;gap:10px}
+.sw{text-align:center;margin-top:28px;color:var(--mu);font-size:17px}.sw a{color:var(--ac);font-weight:700;cursor:pointer}
+.er{color:var(--dg);font-size:14px;margin:-6px 0 12px}
+.fx{display:flex;min-height:100vh;min-height:100dvh}
+.sb{width:260px;flex:none;background:var(--card);border-right:1px solid var(--bd);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;height:100dvh;z-index:20}
+.sbt{display:flex;gap:12px;align-items:center;padding:22px 20px 18px}.sbt b{font-size:19px;display:block;line-height:1.1;letter-spacing:.3px}.sbt span{font-size:12px;color:var(--mu)}
+.lg2{width:44px;height:44px;border-radius:12px;background:#e9f5ec;display:grid;place-items:center}
+#nav{padding:6px 14px;display:flex;flex-direction:column;gap:6px;flex:1;overflow-y:auto}
+.ni{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:0;background:none;padding:13px 16px;border-radius:14px;font-size:16px;font-weight:500;color:var(--tx)}
+.ni.on{background:linear-gradient(#1b8a3f,#15753a);color:#fff;font-weight:700;box-shadow:0 8px 18px rgba(27,138,63,.28)}
+.usr{position:relative;display:flex;align-items:center;gap:12px;padding:18px 20px;border-top:1px solid var(--bd);cursor:pointer}
+.av{width:42px;height:42px;border-radius:50%;background:#d6f0de;color:#146c32;display:grid;place-items:center;font-weight:700;flex:none}
+.un{flex:1;min-width:0}.un b{display:block}.un span{font-size:13px;color:var(--mu)}
+.pp{display:none;position:absolute;bottom:78px;left:16px;right:16px}.usr.o .pp{display:block}.pp button{width:100%}
+.rt{flex:1;min-width:0}
+.tb{display:flex;align-items:center;gap:16px;padding:14px 24px;background:var(--card);border-bottom:1px solid var(--bd)}
+.hb{border:0;background:none;font-size:22px;padding:6px;color:var(--tx)}
+.tt{flex:1;min-width:0}.tt b{font-size:24px;font-weight:700}.tt p{margin:2px 0 0;color:var(--mu)}
+.bdg{display:inline-block;margin-left:10px;vertical-align:middle;background:#d6f0de;color:#146c32;font-size:13px;font-weight:700;letter-spacing:.8px;padding:4px 12px;border-radius:99px}
+.tr{display:flex;align-items:center;gap:14px}.dt{border:1px solid var(--bd);border-radius:12px;padding:10px 16px;font-weight:500;white-space:nowrap}
+.rt main{max-width:none;margin:0;padding:24px 32px 40px}
+.info{display:flex;gap:12px;align-items:center;background:#e9f6ed;border:1px solid #cfe8d6;color:#1a3a22;border-radius:99px;padding:14px 22px;margin-bottom:20px}
+.sc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-bottom:20px}
+.sk{display:flex;gap:18px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:22px;padding:22px}
+.ti{width:60px;height:60px;border-radius:16px;display:grid;place-items:center;flex:none}.sk b{font-size:24px;display:block}.sk span{color:var(--mu)}
+.big{background:var(--card);border:1px solid var(--bd);border-radius:22px;padding:24px;min-height:250px}
+.bh{display:flex;align-items:center;gap:12px;font-size:20px;font-weight:700}.pill{margin-left:auto;background:#d6f0de;color:#146c32;font-size:14px;padding:5px 11px;border-radius:99px}
+.emp{text-align:center;color:var(--mu);padding:50px 0}
+.tk{display:flex;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--bd)}.tk>div{flex:1}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.lk{color:var(--ac);font-weight:600;cursor:pointer;text-decoration:underline}.lists li{margin:3px 0}
+.seg{display:flex;gap:6px;margin-bottom:22px;background:var(--bg);padding:5px;border-radius:14px}.seg button{flex:1;border:0;background:none;padding:10px 4px;border-radius:10px;font-weight:600}.seg button.on{background:var(--ac);color:var(--act)}
+@media(min-width:861px){.nosb .sb{display:none}}
+@media(max-width:860px){.sb{position:fixed;left:0;top:0;transform:translateX(-100%);transition:.2s}.sb.open{transform:none;box-shadow:0 0 40px rgba(0,0,0,.3)}.tb{padding:12px 14px}.tt b{font-size:19px}.tt p,.dt{display:none}.rt main{padding:16px 14px 40px}}
+@media(max-width:860px){#auth{grid-template-columns:1fr}.al{padding:28px 24px}.al h2{font-size:28px;margin:26px 0 0}.al .ds,.tl,.cp{display:none}.ac{padding:36px 24px}}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px 14px}
+.stat{border-left:4px solid var(--ac)}.stat b{display:block;font-size:24px}.stat span{color:var(--mu);font-size:12px}
+.lists{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+h3{margin:0 0 6px;font-size:14px}ul{margin:0;padding-left:18px}li{margin:2px 0}.mu{color:var(--mu)}.bad{color:var(--dg)}
+form{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-bottom:12px}
+label{font-size:12px;color:var(--mu);display:flex;flex-direction:column;gap:2px}
+input,select{font:inherit;padding:7px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);width:100%}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;align-items:center}.bar input{max-width:240px}
+.wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--bd);white-space:nowrap}th{color:var(--mu);font-weight:600}
+</style></head><body>
+<div id="auth"><section class="al"><div class="br"><div class="lg"><svg width="34" height="34" viewBox="0 0 24 24"><path d="M12 21v-8M12 13C7 13 4 10 4 5c5 0 8 3 8 8zM12 15c0-4 3-7 8-7 0 5-3 8-8 7z" fill="#1b8a3f"/></svg></div><div><b>FARMIS</b><span>Mukwasi Agri Business</span></div></div>
+<h2>Smart Farm Management for a Productive Tomorrow</h2>
+<p class="ds">One professional workspace for crops, livestock, inventory, workers and farm finance — built for Mukwasi Agri Business.</p>
+<div class="tl"><div><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18M7 15l4-4 3 3 6-7"/></svg>Track Progress</div><div><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>Manage Operations</div><div><svg class="ic" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>Boost Productivity</div><div><svg class="ic" viewBox="0 0 24 24"><path d="M12 21v-9M12 12c0-4-3-6-7-6 0 4 3 6 7 6zM12 14c0-3 2-5 6-5 0 3-2 5-6 5z"/></svg>Grow Your Business</div></div>
+<div class="cp">ⓒ 2026 FARMIS · Mukwasi Agri Business</div></section>
+<section class="ar"><div class="ac" id="ac"></div></section></div>
+<div id="app" style="display:none">
+<div class="fx"><aside class="sb" id="sb"><div class="sbt"><div class="lg2"><svg width="30" height="30" viewBox="0 0 24 24"><path d="M12 21v-8M12 13C7 13 4 10 4 5c5 0 8 3 8 8zM12 15c0-4 3-7 8-7 0 5-3 8-8 7z" fill="#1b8a3f"/></svg></div><div><b>FARMIS</b><span>Mukwasi Agri Business</span></div></div><div id="nav"></div><div class="usr" id="usr" onclick="this.classList.toggle('o')"></div></aside>
+<div class="rt"><div class="tb"><button class="hb" aria-label="Menu" onclick="document.getElementById('sb').classList.toggle('open');document.body.classList.toggle('nosb')">☰</button><div class="tt" id="tt"></div><div class="tr" id="tr"></div></div><main id="main"></main></div></div></div>
+<script>
+const S={
+animals:['Animals',[['tag','Tag ID','text*'],['name','Name','text'],['sex','Sex','sel',['Male','Female']],['breed','Breed','breed'],['dob','Date of birth','date'],['status','Status','sel',['Active','Sold','Dead','Culled']]]],
+health:['Health',[['date','Date','date*'],['animal','Animal','animal*'],['type','Type','sel',['Vaccination','Deworming','Treatment','Hoof trim','Checkup','FAMACHA','Other']],['details','Details','text'],['medicine','Medicine','med'],['dose','Dose','text'],['cost','Cost','num'],['next','Next due','date']]],
+breeding:['Breeding',[['doe','Doe','female*'],['buck','Buck','male'],['mated','Mating date','date*'],['due','Expected kidding (auto, +150 days)','date'],['status','Status','sel',['Pregnant','Kidded','Not pregnant']],['kidded','Kidding date','date'],['kids','Kids born','num'],['notes','Notes','text']]],
+milk:['Milk',[['date','Date','date*'],['animal','Doe','female*'],['session','Session','sel',['Morning','Evening']],['litres','Litres','num*']]],
+weights:['Weights',[['date','Date','date*'],['animal','Animal','animal*'],['kg','Weight (kg)','num*'],['notes','Notes','text']]],
+feed:['Feed & Stock',[['item','Item','text*'],['cat','Category','sel',['Feed','Medicine','Supplies','Equipment']],['qty','Quantity','num*'],['unit','Unit','text'],['min','Reorder level','num'],['notes','Notes','text']]],
+finance:['Transactions',[['date','Date','date*'],['type','Type','sel',['Income','Expense']],['cat','Category','sel',['Animal sales','Milk sales','Manure','Feed','Veterinary','Labour','Equipment','Utilities','Other']],['desc','Description','text'],['amt','Amount','num*']]],
+tasks:['Assign Tasks',[['task','Task','text*'],['due','Due date','date'],['who','Assigned to (full name)','worker'],['status','Status','sel',['Open','In progress','Completed']]]],
+reports:['Daily Reports',[['date','Date','date*'],['by','Reported by','worker'],['task','Related task','task'],['animal','Animal','animal'],['summary','Work done','text*'],['issues','Issues / observations','text']]],
+attend:['Attendance',[['date','Date','date*'],['worker','Worker','worker*'],['status','Status','sel',['Present','Absent','Late','Leave']],['in','Time in','time'],['out','Time out','time'],['notes','Notes','text']]]};
+const T=new Date().toISOString().slice(0,10);
+const add=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x.toISOString().slice(0,10)};
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let DB={};try{DB=JSON.parse(localStorage.getItem('goatdb')||'{}')}catch(e){}
+Object.keys(S).forEach(k=>DB[k]=DB[k]||[]);
+const save=()=>{try{localStorage.setItem('goatdb',JSON.stringify(DB))}catch(e){}};
+const IC={animals:'🐐',health:'💉',breeding:'🍼',milk:'🥛',weights:'⚖️',feed:'🌾',finance:'💰',tasks:'✅'};
+let cur='mytasks',edit=null,q='';
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const sum=(a,f)=>a.reduce((s,x)=>s+(+f(x)||0),0);
+const fmt=n=>Math.round(n).toLocaleString();
+function go(k){cur=k;edit=null;q='';pre=null;draw()}
+function draw0(){
+document.getElementById('nav').innerHTML=[['dash','📊 Dashboard'],...Object.keys(S).map(k=>[k,IC[k]+' '+S[k][0]]),['data','💾 Backup']].map(([k,l])=>`<button class="${k==cur?'on':''}" onclick="go('${k}')">${l}</button>`).join('');
+document.getElementById('main').innerHTML=cur=='dash'?dash():cur=='data'?data():mod(cur);
+}
+function dash(){
+const A=DB.animals.filter(a=>a.status=='Active'),c=s=>A.filter(a=>(a.sex=='Doe'?'Female':a.sex=='Buck'?'Male':a.sex)==s).length;
+const kids=A.filter(a=>a.dob&&a.dob>add(T,-365)).length;
+const preg=DB.breeding.filter(b=>b.status=='Pregnant');
+const soon=preg.filter(b=>b.due&&b.due<=add(T,30)).sort((a,b)=>a.due>b.due?1:-1);
+const hd=DB.health.filter(h=>h.next&&h.next<=add(T,14)).sort((a,b)=>a.next>b.next?1:-1);
+const low=DB.feed.filter(f=>+f.min&&+f.qty<=+f.min);
+const od=DB.tasks.filter(t=>t.status!='Completed'&&t.due&&t.due<=T);
+const m30=sum(DB.milk.filter(m=>m.date>=add(T,-30)),m=>m.litres);
+const inc=sum(DB.finance.filter(x=>x.type=='Income'),x=>x.amt),exp=sum(DB.finance.filter(x=>x.type=='Expense'),x=>x.amt);
+const st=(n,l,cl='')=>`<div class="card stat" style="cursor:pointer" onclick="go(to('${l}'))"><b class="${cl}">${n}</b><span>${l}</span></div>`;
+const ls=(t,a,f)=>`<div class="card"><h3 style="cursor:pointer" onclick="go(to('${t}'))">${t} ›</h3>${a.length?'<ul>'+a.slice(0,8).map(f).join('')+'</ul>':'<span class="mu">Nothing to show</span>'}</div>`;
+return `<div class="grid">${st(A.length,'Active goats')}${st(c('Female'),'Females')}${st(c('Male'),'Males')}${st(kids,'Kids under 1 year')}${st(preg.length,'Pregnant does')}${st(fmt(m30),'Litres milk, last 30 days')}${st(fmt(inc-exp),'Net balance (income − expenses)',inc-exp<0?'bad':'')}</div>
+<div class="lists">${ls('Kidding due in 30 days',soon,b=>`${esc(b.doe)}: ${b.due}`)}${ls('Health actions due (14 days)',hd,h=>`${esc(h.animal)}: ${esc(h.type)} on <span class="${h.next<T?'bad':''}">${h.next}</span>`)}${ls('Low stock',low,f=>`${esc(f.item)}: ${f.qty} ${esc(f.unit)} left`)}${ls('Overdue or due-today tasks',od,t=>`${esc(t.task)} (${t.due})`)}${ls('Withdrawal: do not sell',wd(),x=>`${esc(x.animal)}: ${esc(x.med)}${x.milk?' – milk until '+x.milk:''}${x.meat?' – meat until '+x.meat:''}`)}</div>
+${A.length||DB.finance.length?'':'<p class="mu">Start with the Animals tab, or load sample data under Backup.</p>'}`}
+function field(f,v,isNew){const[n,l,t0,o]=f,t=t0.replace('*',''),r=t0.endsWith('*')?'required':'';
+if(v===undefined)v=(isNew&&(n=='date'||n=='mated'))?T:(isNew&&(n=='by'||n=='worker')?ME().name:'');
+let i;
+if(t=='sel')i=`<select name="${n}">${o.map(x=>`<option ${x==v?'selected':''}>${x}</option>`).join('')}</select>`;
+else if(t=='med')i=gsel(n,v,MED).replace('<select','<select onchange="medPick(this)"');
+else if(t=='breed')i=`<select name='${n}'><option value=''>–</option>${Object.entries(BR).map(([g,a])=>`<optgroup label='${g}'>${a.map(x=>`<option ${x==v?'selected':''}>${x}</option>`).join('')}</optgroup>`).join('')}${v&&!Object.values(BR).flat().includes(v)?`<option selected>${esc(v)}</option>`:''}</select>`;
+else if(t=='female'||t=='male')i=asel(n,v,r,t=='female'?'Female':'Male');
+else if(t=='task')i=dlist(n,v,DB.tasks.map(x=>x.task),r);
+else if(t=='worker')i=dlist(n,v,[...AU.users().map(u=>u.name),...DB.tasks.map(x=>x.who),...DB.attend.map(x=>x.worker),...DB.reports.map(x=>x.by)],r);
+else if(t=='animal')i=`<select name="${n}" ${r}><option value="">–</option>${DB.animals.filter(a=>a.status=='Active'||a.tag==v).map(a=>`<option value="${esc(a.tag)}" ${a.tag==v?'selected':''}>${esc(a.tag)}${a.name?' – '+esc(a.name):''}</option>`).join('')}</select>`;
+else i=`<input name="${n}" type="${t=='num'?'number':t}" ${t=='num'?'step="any"':''} value="${esc(v)}" ${r}>`;
+return `<label>${l}${i}</label>`}
+function mod(k){
+const[lab,F]=S[k],rec=edit&&DB[k].find(x=>x.id==edit)||(pre&&pre.k==k?pre.v:{});
+const rows=DB[k].filter(x=>!q||JSON.stringify(x).toLowerCase().includes(q.toLowerCase())).slice().reverse();
+return `<h3>${edit?'Edit record':'Add to '+lab}</h3>
+<form onsubmit="return sub(event,'${k}')">${F.map(f=>field(f,rec[f[0]],!edit)).join('')}<div style="display:flex;gap:6px;align-items:end"><button class="pri">${edit?'Save changes':'Add'}</button>${edit?'<button type="button" onclick="go(\''+k+'\')">Cancel</button>':''}</div></form>
+<div class="bar"><input placeholder="Search…" value="${esc(q)}" oninput="q=this.value;redraw('${k}')" id="s"><button onclick="csv('${k}')">Export CSV</button><span class="mu">${rows.length} records</span></div>
+<div class="wrap" id="tb">${tbl(k,rows)}</div>`}
+function tbl(k,rows){rows=scope(k,rows);const F=S[k][1];
+return `<table><tr>${F.map(f=>`<th>${f[1].replace(/ \(.*/,'')}</th>`).join('')}<th></th></tr>${rows.map(r=>`<tr>${F.map(f=>`<td>${/^(animal|female|male)/.test(f[2])||(k=='animals'&&f[0]=='tag')?lkA(r[f[0]]):esc(r[f[0]])}</td>`).join('')}<td><button onclick="edit='${r.id}';draw();scrollTo(0,0)">Edit</button> <button class="del" onclick="del('${k}','${r.id}')">Delete</button></td></tr>`).join('')}</table>`}
+function redraw(k){const rows=DB[k].filter(x=>!q||JSON.stringify(x).toLowerCase().includes(q.toLowerCase())).slice().reverse();document.getElementById('tb').innerHTML=tbl(k,rows)}
+function sub(e,k){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));
+if(k=='animals'&&DB.animals.some(a=>a.tag==d.tag&&a.id!=edit)){alert('That Tag ID already exists.');return false}
+if(k=='breeding'&&d.mated&&!d.due)d.due=add(d.mated,150);
+if(k=='milk'&&wd().some(x=>x.animal==d.animal&&x.milk)&&!confirm('This goat is in a milk withdrawal period. Do not sell or drink this milk. Record it anyway?'))return false;
+if(k=='reports'&&d.task){const t=DB.tasks.find(x=>x.task==d.task);if(t)t.status='Completed'}
+if(k=='health'&&+d.cost>0&&!edit)DB.finance.push({id:uid(),date:d.date,type:'Expense',cat:'Veterinary',desc:d.type+' – '+d.animal,amt:d.cost});
+if(k=='health'&&d.type=='Vaccination'&&!d.next)d.next=add(d.date,365);
+if(edit)Object.assign(DB[k].find(x=>x.id==edit),d);else DB[k].push({id:uid(),...d});
+edit=null;pre=null;save();draw();return false}
+function del(k,id){if(confirm('Delete this record?')){DB[k]=DB[k].filter(x=>x.id!=id);save();draw()}}
+function dl(name,txt,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type}));a.download=name;a.click()}
+function csv(k){const F=S[k][1];dl(k+'.csv',[F.map(f=>f[1]),...DB[k].map(r=>F.map(f=>r[f[0]]??''))].map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n'),'text/csv')}
+function data(){return `<div class="card"><h3>Backup and restore</h3><p class="mu">Everything is stored in this browser only. Download a backup regularly, and use it to move data to another device.</p>
+<div class="bar"><button class="pri" onclick="dl('goat-farm-backup.json',JSON.stringify({...DB,_users:AU.users()}),'application/json')">Download backup (JSON)</button><label class="btn">Restore from backup<input type="file" accept=".json" onchange="restore(this)" style="display:none"></label><button onclick="sample()">Load sample data</button><button class="del" onclick="wipe()">Erase all data</button></div></div>`}
+function restore(i){const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);Object.keys(S).forEach(k=>DB[k]=d[k]||[]);if(d._users)saveU(d._users);save();go('dash')}catch(e){alert('That file could not be read.')}};r.readAsText(i.files[0])}
+function wipe(){if(confirm('Erase ALL farm data? This cannot be undone.')){Object.keys(S).forEach(k=>DB[k]=[]);save();go('dash')}}
+function sample(){if(DB.animals.length&&!confirm('Add sample records to your existing data?'))return;
+const m=(k,a)=>a.forEach(x=>DB[k].push({id:uid(),...x}));
+m('animals',[{tag:'G001',name:'Nala',sex:'Female',breed:'Boer',dob:add(T,-900),status:'Active'},{tag:'G002',name:'Zuri',sex:'Female',breed:'Saanen',dob:add(T,-700),status:'Active'},{tag:'G003',name:'Simba',sex:'Male',breed:'Boer',dob:add(T,-1000),status:'Active'},{tag:'G004',name:'Kid 1',sex:'Female',breed:'Boer',dob:add(T,-90),status:'Active',dam:'G001',sire:'G003'}]);
+m('health',[{date:add(T,-350),animal:'G001',type:'Vaccination',details:'CDT booster',cost:'3000',next:add(T,10)},{date:add(T,-30),animal:'G002',type:'Deworming',medicine:'Albendazole',cost:'2000',next:add(T,60)}]);
+m('breeding',[{doe:'G002',buck:'G003',mated:add(T,-130),due:add(T,20),status:'Pregnant'}]);
+m('milk',[{date:T,animal:'G002',session:'Morning',litres:'1.8'},{date:add(T,-1),animal:'G002',session:'Evening',litres:'1.5'}]);
+m('weights',[{date:T,animal:'G004',kg:'14.5'}]);
+m('feed',[{item:'Dairy meal',cat:'Feed',qty:'20',unit:'kg',min:'50'},{item:'Hay bales',cat:'Feed',qty:'40',unit:'bales',min:'10'}]);
+m('finance',[{date:add(T,-5),type:'Income',cat:'Milk sales',desc:'Weekly milk',amt:'60000'},{date:add(T,-3),type:'Expense',cat:'Feed',desc:'Dairy meal',amt:'45000'}]);
+m('tasks',[{task:'Trim hooves',due:add(T,-1),who:'',status:'Open'}]);
+save();go('dash')}
+const AU={users:()=>{try{return JSON.parse(localStorage.getItem('farmis_users')||'[]')}catch(e){return[]}}};
+async function hash(s){try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){return btoa(s)}}
+const I={user:'<svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>',mail:'<svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>',lock:'<svg class="ic" viewBox="0 0 24 24" style="fill:currentColor"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3" style="fill:none"/></svg>',eye:'<svg class="ic" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>',arr:'<svg class="ic" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'};
+let mode='in';
+function setMode(m){mode=m;authDraw()}
+function authDraw0(){const r=mode=='up';
+document.getElementById('ac').innerHTML=`<h1>${r?'Create your account':'Welcome back'}</h1><p class="sub">${r?'Set up your FARMIS workspace.':'Sign in to your FARMIS workspace.'}</p>
+<form style="display:block" onsubmit="return authSub(event)">${r?`<label>Full name<div class="fi">${I.user}<input name="name" placeholder="Your name" required></div></label>`:''}
+<label>Email address<div class="fi">${I.mail}<input name="email" type="email" placeholder="you@farm.com" required></div></label>
+<label>Password<div class="fi">${I.lock}<input name="pw" id="pw" type="password" placeholder="Your password" required minlength="6"><button type="button" class="eye" aria-label="Show password" onclick="const p=document.getElementById('pw');p.type=p.type=='password'?'text':'password'">${I.eye}</button></div></label>
+${r?algSel():''}<div class="er" id="er"></div><button class="go">${r?'Create account':'Sign In'} ${I.arr}</button></form>
+<div class="sw">${r?'Already have an account? <a onclick="setMode(\'in\')">Sign in</a>':'New to FARMIS? <a onclick="setMode(\'up\')">Create an account</a>'}</div>`}
+async function authSub0(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target)),em=d.email.trim().toLowerCase(),h=await hash(d.pw),us=AU.users(),er=document.getElementById('er');
+if(mode=='up'){if(us.some(u=>u.email==em)){er.textContent='An account with that email already exists.';return false}us.push({email:em,name:d.name,h});try{localStorage.setItem('farmis_users',JSON.stringify(us))}catch(x){}}
+else if(!us.some(u=>u.email==em&&u.h==h)){er.textContent='Incorrect email or password.';return false}
+try{localStorage.setItem('farmis_session',em)}catch(x){}enter();return false}
+function enter(){document.getElementById('auth').style.display='none';document.getElementById('app').style.display='block';draw()}
+function showAuth(){document.getElementById('app').style.display='none';document.getElementById('auth').style.display='grid';mode='in';authDraw()}
+function logout(){try{localStorage.removeItem('farmis_session')}catch(e){}showAuth()}
+let ok=false;try{ok=AU.users().some(u=>u.email==localStorage.getItem('farmis_session'))}catch(e){}
+const P={list:`<path d='M9 6h12M9 12h12M9 18h12M3 6l1 1 2-2M3 12l1 1 2-2M3 18l1 1 2-2'/>`,dash:`<rect x='3' y='3' width='7' height='9'/><rect x='14' y='3' width='7' height='5'/><rect x='14' y='12' width='7' height='9'/><rect x='3' y='16' width='7' height='5'/>`,edit:`<path d='M12 20h9M16 4l4 4L8 20H4v-4z'/>`,clip:`<rect x='6' y='4' width='12' height='17' rx='2'/><path d='M9 4h6v3H9z'/>`,clock:`<circle cx='12' cy='12' r='9'/><path d='M12 7v5l3 2'/>`,cash:`<rect x='2' y='6' width='20' height='12' rx='2'/><circle cx='12' cy='12' r='3'/>`,assign:`<circle cx='9' cy='8' r='3.5'/><path d='M2 20c0-4 3-6 7-6s7 2 7 6M18 8v6M15 11h6'/>`,dl:`<path d='M12 3v12M7 10l5 5 5-5M4 21h16'/>`,bell:`<path d='M18 16v-5a6 6 0 10-12 0v5l-2 2h16zM10 21h4'/>`,cal:`<rect x='3' y='5' width='18' height='16' rx='2'/><path d='M3 10h18M8 3v4M16 3v4'/>`,smile:`<circle cx='12' cy='12' r='9'/><path d='M8 14c1 2 3 3 4 3s3-1 4-3M9 9.5v.5M15 9.5v.5'/>`};
+const SV=(n,s)=>`<svg class='ic' viewBox='0 0 24 24'${s?` style='${s}'`:''}>${P[n]}</svg>`;
+const NAV=[['mytasks','My Tasks','list'],['dash','Overview','dash'],['entry','Data Entry','edit'],['reports','Daily Reports','clip'],['attend','Attendance','clock'],['finance','Transactions','cash'],['tasks','Assign Tasks','assign'],['data','Backup','dl']];
+const ENT=['animals','health','breeding','milk','weights','feed'];let lastEnt='animals';
+const PG={mytasks:['My Tasks','Hi {n}! Here are the tasks your supervisor assigned to you.'],dash:['Overview','A snapshot of your herd, health, stock and finances.'],entry:['Data Entry','Record herd, health, breeding, milk, weights and stock.'],reports:['Daily Reports','File a report for each task you complete.'],attend:['Attendance','Record who worked and when.'],finance:['Transactions','Track farm income and expenses.'],tasks:['Assign Tasks','Create work and assign it to your team.'],data:['Backup','Save or restore your farm data.']};
+const ME=()=>{let e='';try{e=localStorage.getItem('farmis_session')}catch(x){}const u=AU.users().find(u=>u.email==e);return u?{...u,role:u.role||'admin'}:{name:'Farm User',email:e||'',role:'worker'}};
+const ini=n=>n.split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
+const chips=()=>`<div class='chips'>${entFor(ME().role).map(k=>`<button class='${k==cur?'on':''}' onclick="go('${k}')">${IC[k]} ${S[k][0]}</button>`).join('')}</div>`;
+function setTask(id,s){const t=DB.tasks.find(x=>x.id==id);t.status=s;save();if(s=='Completed'){pre={k:'reports',v:{date:T,by:ME().name,task:t.task}};cur='reports';edit=null;q=''}draw()}
+const INFO=`<svg class='ic' viewBox='0 0 24 24' style='fill:#1b8a3f;stroke:none'><circle cx='12' cy='12' r='10'/><path d='M12 11v6M12 7v1' style='stroke:#fff;stroke-width:2.5'/></svg>`;
+const T1=`<svg width='30' height='30' viewBox='0 0 24 24'><circle cx='12' cy='12' r='9' fill='none' stroke='#d9a21b' stroke-width='3'/><path d='M12 5a7 7 0 010 14z' fill='#d9a21b'/></svg>`;
+const T2=`<svg width='30' height='30' viewBox='0 0 24 24' fill='#3b6df0'><circle cx='12' cy='3' r='1.8'/><circle cx='18.4' cy='5.6' r='1.6'/><circle cx='21' cy='12' r='1.4'/><circle cx='18.4' cy='18.4' r='1.2'/><circle cx='12' cy='21' r='1'/><circle cx='5.6' cy='18.4' r='.9'/><circle cx='3' cy='12' r='.8'/></svg>`;
+const T3=`<svg width='30' height='30' viewBox='0 0 24 24'><circle cx='12' cy='12' r='11' fill='#1b8a3f'/><path d='M7 12.5l3.2 3.2L17 9' stroke='#fff' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>`;
+function mine(){const nm=ME().name.toLowerCase(),L=DB.tasks.filter(t=>!t.who||t.who.toLowerCase()==nm).sort((a,b)=>(a.due||'9')>(b.due||'9')?1:-1),st=t=>t.status||'Open',c=s=>L.filter(t=>st(t)==s).length;
+const sk=(n,l,s,bg,ic)=>`<div class='sk'><div class='ti' style='background:${bg}'>${ic}</div><div><b>${n}</b><strong style='display:block;font-weight:600'>${l}</strong><span>${s}</span></div></div>`;
+const rows=L.map(t=>`<div class='tk'><div><b>${esc(t.task)}</b><br><span class='mu'>${t.due?'Due '+t.due:'No due date'} · ${st(t)}</span></div>${st(t)=='Completed'?`<button onclick="setTask('${t.id}','Open')">Reopen</button>`:(st(t)=='Open'?`<button onclick="setTask('${t.id}','In progress')">Start</button>`:'')+`<button class='pri' onclick="setTask('${t.id}','Completed')">Complete</button>`}</div>`).join('');
+return `<div class='info'>${INFO}<span>These are the tasks your supervisor assigned to you — work through them and file a <b><a class='lk' onclick="go('reports')">Daily Report</a></b> for each one you complete.</span></div>
+<div class='sc'>${sk(c('Open'),'Open','Not started yet','#fbf0cc',T1)}${sk(c('In progress'),'In progress','Currently being worked on','#e4ecfd',T2)}${sk(c('Completed'),'Completed','Finished tasks','#e1f4e7',T3)}</div>
+<div class='big'><div class='bh'>${SV('list','color:#1b8a3f')}Assigned to Me<span class='pill'>${L.length}</span></div>${L.length?rows:`<div class='emp'>${SV('smile','width:36px;height:36px;color:#8cc9a0')}<p>No tasks assigned yet — your supervisor will send work here.</p></div>`}</div>`}
+function draw(){
+const me0=ME(),ok0=ROLE_NAV[me0.role]||ROLE_NAV.worker,ents=entFor(me0.role);
+if(!(ok0.includes(cur)||ents.includes(cur)||(cur=='profile'&&me0.role!='worker')))cur=ok0[0];
+if(ents.includes(cur))lastEnt=cur;
+const sec=ENT.includes(cur)||cur=='profile'?'entry':cur,me=ME(),p=PG[cur=='profile'?'profile':sec]||PG.dash;
+document.getElementById('sb').classList.remove('open');
+document.getElementById('nav').innerHTML=NAV.filter(n=>ok0.includes(n[0])).map(([k,l,ic])=>{const a=k=='entry'?'entHome()':`'${k}'`;return `<button class='ni ${k==sec?'on':''}' onclick="go(${a})">${SV(ic)}${l}</button>`}).join('');
+document.getElementById('tt').innerHTML=`<b>${p[0]}</b><span class='bdg'>LIVESTOCK</span><p>${p[1].replace('{n}',esc(me.name))}</p>`;
+document.getElementById('tr').innerHTML=`${SV('bell')}<span class='dt'>${SV('cal','vertical-align:-5px;color:#1b8a3f')} ${new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'})} ⌄</span>${SV('clock')}<div class='av'>${ini(me.name)}</div>`;
+document.getElementById('usr').innerHTML=`<div class='pp'><button onclick="logout()">Sign out</button></div><div class='av'>${ini(me.name)}</div><div class='un'><b>${esc(me.name)}</b><span>${RL[me.role]} · Livestock</span></div><span class='mu'>⌃</span>`;
+document.getElementById('main').innerHTML=sec=='admin'?adminPage():sec=='team'?teamPage():sec=='mytasks'?mine():sec=='dash'?dash():sec=='data'?data():sec=='security'?secPage():sec=='entry'?(cur=='profile'?profile():chips()+(cur=='milk'?wdBanner():'')+mod(cur)+(cur=='health'?medGuide():'')):mod(cur);
+}
+let pre=null,pt='';
+P.lock=`<rect x='5' y='11' width='14' height='10' rx='2'/><path d='M8 11V8a4 4 0 018 0v3'/>`;P.shield=`<path d='M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z'/>`;
+NAV.splice(7,0,['security','Security','shield']);
+PG.profile=['Animal Profile','Full history for this animal across every record.'];PG.security=['Security','Choose how your password is hashed and change it.'];
+const to=s=>/Pregnant|Kidding/.test(s)?'breeding':/milk/i.test(s)?'milk':/Net/.test(s)?'finance':/Health|Withdrawal/.test(s)?'health':/stock/i.test(s)?'feed':/task/i.test(s)?'tasks':'animals';
+const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+const rnd=()=>hex(crypto.getRandomValues(new Uint8Array(16)));
+const saveU=us=>{try{localStorage.setItem('farmis_users',JSON.stringify(us))}catch(x){}};
+const AL={pbkdf2:'PBKDF2-SHA256 (150,000 rounds, salted)',sha512:'SHA-512 (salted)',sha256:'SHA-256 (salted)'};
+async function hp(pw,alg,salt){const e=new TextEncoder();try{if(alg=='pbkdf2'){const k=await crypto.subtle.importKey('raw',e.encode(pw),'PBKDF2',false,['deriveBits']);return hex(await crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt:e.encode(salt),iterations:150000},k,256))}return hex(await crypto.subtle.digest(alg=='sha512'?'SHA-512':'SHA-256',e.encode((salt||'')+pw)))}catch(x){return btoa(pw)}}
+const algSel=(a='pbkdf2')=>`<label>Password protection<select name='alg'>${Object.entries(AL).map(([k,v])=>`<option value='${k}' ${k==a?'selected':''}>${v}</option>`).join('')}</select></label>`;
+const dlist=(n,v,arr,r)=>`<input name='${n}' list='dl_${n}' value='${esc(v)}' ${r}><datalist id='dl_${n}'>${[...new Set(arr)].filter(Boolean).map(x=>`<option value='${esc(x)}'>`).join('')}</datalist>`;
+const lkA=t=>t&&ME().role=='worker'?esc(t):t?`<a class='lk' onclick="prof('${esc(t)}')">${esc(t)}</a>`:'';
+async function authSub(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target)),em=d.email.trim().toLowerCase(),us=AU.users(),er=document.getElementById('er');
+if(mode=='up'){if(us.some(u=>u.email==em)){er.textContent='An account with that email already exists.';return false}const alg=d.alg||'pbkdf2',salt=rnd();if(us.length){er.textContent='Sign-up is closed. Ask your administrator to add you.';return false}us.push({email:em,name:d.name,alg,salt,role:'admin',h:await hp(d.pw,alg,salt)});saveU(us)}
+else{const u=us.find(x=>x.email==em);if(!u||await hp(d.pw,u.alg||'sha256',u.salt||'')!=u.h){er.textContent='Incorrect email or password.';return false}
+if(d.portal&&(u.role||'admin')!=d.portal){er.textContent='This is not a '+d.portal+' account. Choose the matching sign-in type.';return false}
+if(!u.salt){u.alg='pbkdf2';u.salt=rnd();u.h=await hp(d.pw,'pbkdf2',u.salt);saveU(us)}}
+try{localStorage.setItem('farmis_session',em)}catch(x){}enter();return false}
+function secPage(){const me=ME();return `<div class='big' style='min-height:0;max-width:640px'><div class='bh'>${SV('shield','color:#1b8a3f')}Password hashing</div><p class='mu'>Your password is never stored, only a one-way hash. Current method: <b>${me.salt?AL[me.alg]:'SHA-256 (unsalted, will upgrade at next sign-in)'}</b>.</p>
+<ul><li><b>PBKDF2-SHA256:</b> salted and deliberately slow (150,000 rounds). Best protection against guessing.</li><li><b>SHA-512 / SHA-256 (salted):</b> fast, with a unique random salt per account.</li></ul>
+<form style='display:block;margin-top:16px' onsubmit="return chgPw(event)">${algSel(me.alg||'pbkdf2')}<label>Current password<input name='old' type='password' required></label><label>New password (min 6 characters)<input name='nw' type='password' minlength='6' required></label><div class='er' id='ser'></div><button class='pri'>Update password and hash method</button></form></div>`}
+async function chgPw(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target)),us=AU.users(),u=us.find(x=>x.email==ME().email),er=document.getElementById('ser');
+if(!u||await hp(d.old,u.alg||'sha256',u.salt||'')!=u.h){er.style.color='var(--dg)';er.textContent='Current password is incorrect.';return false}
+u.alg=d.alg;u.salt=rnd();u.h=await hp(d.nw,d.alg,u.salt);saveU(us);er.style.color='var(--ac)';er.textContent='Saved. Your password now uses '+AL[d.alg]+'.';e.target.reset();return false}
+function prof(t){pt=t;cur='profile';edit=null;q='';draw();scrollTo(0,0)}
+function profile(){const a=DB.animals.find(x=>x.tag==pt);if(!a)return `<button onclick="go('animals')">← Animals</button><p>Animal not found.</p>`;
+const L=(r,f)=>r.length?'<ul>'+r.slice(-6).reverse().map(f).join('')+'</ul>':`<span class='mu'>None yet</span>`;
+const hs=DB.health.filter(h=>h.animal==pt),ws=DB.weights.filter(w=>w.animal==pt).sort((x,y)=>x.date>y.date?1:-1),ml=DB.milk.filter(m=>m.animal==pt),br=DB.breeding.filter(b=>b.doe==pt||b.buck==pt),kd=DB.animals.filter(x=>x.dam==pt||x.sire==pt);
+const age=a.dob?Math.floor((new Date(T)-new Date(a.dob))/2629800000)+' months':'–',gain=ws.length>1?(ws[ws.length-1].kg-ws[0].kg).toFixed(1)+' kg':'–',cd=(t,b)=>`<div class='card'><h3>${t}</h3>${b}</div>`;
+return `<button onclick="go('animals')">← Back to animals</button><h2 style='margin:14px 0'>${esc(a.tag)} ${a.name?'· '+esc(a.name):''}</h2><div class='lists'>${cd('Details',`<ul><li>Sex: ${esc(a.sex)}</li><li>Breed: ${esc(a.breed)||'–'}</li><li>Age: ${age}</li><li>Status: ${esc(a.status)}</li>${wd().filter(x=>x.animal==a.tag).map(x=>`<li class='bad'>⚠ Withdrawal: ${esc(x.med)}${x.milk?', milk until '+x.milk:''}${x.meat?', meat until '+x.meat:''}</li>`).join('')}</ul>`)}${cd('Health records',L(hs,h=>`${h.date}: ${esc(h.type)}${h.next?' (next '+h.next+')':''}`))}${cd('Weights (gain '+gain+')',L(ws,w=>`${w.date}: ${w.kg} kg`))}${cd('Milk (total '+sum(ml,m=>m.litres).toFixed(1)+' L)',L(ml,m=>`${m.date} ${esc(m.session)}: ${m.litres} L`))}${cd('Breeding',L(br,b=>`${b.mated}: ${lkA(b.doe)} × ${lkA(b.buck)} – ${esc(b.status)}`))}</div>`}
+const BR={'Local (indigenous)':['Small East African','Kigezi','Mubende','Galla','West African Dwarf','Other local goat'],'Exotic':['Boer','Saanen','Toggenburg','Alpine','Anglo-Nubian','Kalahari Red','Savanna','LaMancha','Other exotic'],'Crossbred':['Boer × Local','Saanen × Local','Toggenburg × Local','Anglo-Nubian × Local','Other crossbred']};
+const MED={'Dewormers':['Albendazole','Fenbendazole','Levamisole','Ivermectin','Moxidectin'],'Coccidiosis':['Toltrazuril','Amprolium','Sulfadimidine'],'Antibiotics':['Oxytetracycline (LA)','Penicillin-Streptomycin','Tylosin','Enrofloxacin'],'Vaccines':['PPR','CCPP','Foot-and-mouth disease','Anthrax','CDT (clostridial/tetanus)','Pasteurellosis','Orf','Goat pox','Rift Valley fever'],'Ticks and external parasites':['Amitraz dip','Cypermethrin','Deltamethrin','Flumethrin pour-on'],'Vitamins and minerals':['Vitamin B complex','Vitamin ADE','Iron dextran','Calcium borogluconate','Propylene glycol','Mineral lick'],'Pain and inflammation':['Meloxicam','Flunixin','Dexamethasone'],'Hoof and wound care':['Copper sulphate footbath','Zinc sulphate footbath','Oxytetracycline spray','Gentian violet','Iodine 7% navel dip'],'Other':['Oral rehydration salts','Probiotics','Other']};
+const gsel=(n,v,G)=>`<select name='${n}'><option value=''>–</option>${Object.entries(G).map(([g,a])=>`<optgroup label='${g}'>${a.map(x=>`<option ${x==v?'selected':''}>${x}</option>`).join('')}</optgroup>`).join('')}${v&&!Object.values(G).flat().includes(v)?`<option selected>${esc(v)}</option>`:''}</select>`;
+DB.prices=DB.prices||{};
+const MD={'Albendazole':['5–7.5 mg/kg by mouth, once',1000,'Dewormer. Avoid in early pregnancy. Resistance is reported in Uganda, so confirm with FAMACHA or an egg count.'],'Fenbendazole':['5–10 mg/kg by mouth, once',1500,'Dewormer. Rotate with other classes.'],'Levamisole':['7.5 mg/kg by mouth or SC, once',1000,'Dewormer. Narrow safety margin, do not overdose.'],'Ivermectin':['0.2 mg/kg SC (1% injectable: 1 ml per 50 kg)',2000,'Dewormer, also lice and mange. Milk and meat withdrawal applies.'],'Moxidectin':['0.2 mg/kg by mouth, once',3000,'Dewormer. Keep for resistant worms.'],'Toltrazuril':['20 mg/kg by mouth, once',3000,'Coccidiosis in kids. Isolate sick kids and clean pens.'],'Amprolium':['50 mg/kg by mouth daily for 5 days',2500,'Coccidiosis treatment in kids.'],'Sulfadimidine':['Per product label, usually daily for 3–5 days',2000,'Coccidiosis and bacterial scours. Give plenty of water.'],'Oxytetracycline (LA)':['20 mg/kg IM (20% product: 1 ml per 10 kg)',3000,'Pneumonia, foot rot, tick fever. Max 10 ml per injection site. Withdrawal applies.'],'Penicillin-Streptomycin':['Per product label, IM daily for 3–5 days',3000,'Wounds, mastitis, respiratory infections. Vet advice.'],'Tylosin':['10 mg/kg IM daily for 3 days',4000,'Respiratory and joint infections.'],'Enrofloxacin':['5 mg/kg SC or IM daily for 3–5 days',4000,'Vet prescription only. Reserve for serious cases.'],'PPR':['1 ml SC, once (per vaccine label)',1000,'Vaccinate healthy goats only. Keep the vaccine cold.'],'CCPP':['Per vaccine label, SC',1500,'Vaccinate healthy goats; booster per label.'],'Foot-and-mouth disease':['Per vaccine label, SC or IM',3000,'Follow the district vet schedule.'],'Anthrax':['1 ml SC, yearly',500,'Do not give within 2 weeks of antibiotics.'],'CDT (clostridial/tetanus)':['2 ml SC; booster after 4 weeks, then yearly',1500,'Protects against enterotoxaemia and tetanus. Vaccinate does 4 weeks before kidding.'],'Pasteurellosis':['Per vaccine label, SC',1500,'Pneumonia prevention.'],'Orf':['Scarification, per vaccine label',1000,'Use only where orf is present.'],'Goat pox':['Per vaccine label',1000,'Follow the district vet schedule.'],'Rift Valley fever':['Per vaccine label',1500,'Do not use live vaccine in pregnant does.'],'Amitraz dip':['Dilute per label; dip or spray every 7–14 days',1000,'Ticks and mange. Wear gloves.'],'Cypermethrin':['Per label, spray or pour-on',1500,'Ticks and flies.'],'Deltamethrin':['Per label, spray or pour-on',1500,'Ticks and flies.'],'Flumethrin pour-on':['Per label, pour along the back',3000,'Ticks.'],'Vitamin B complex':['2–5 ml IM (kids 1–2 ml)',2000,'Appetite loss and recovery after illness.'],'Vitamin ADE':['2–3 ml IM (kids 1 ml)',2500,'Poor growth, rough coat.'],'Iron dextran':['1–2 ml IM for kids at 3–7 days (100 mg/ml)',3000,'Prevents anaemia in kids.'],'Calcium borogluconate':['50–100 ml of 20–25% slow IV or SC',15000,'Milk fever. Inject slowly; vet advised.'],'Propylene glycol':['30–60 ml by mouth twice daily',5000,'Pregnancy toxaemia (ketosis).'],'Mineral lick':['Free choice, block or loose',2000,'Price is per animal per month. Keep dry.'],'Meloxicam':['0.5 mg/kg SC once daily',5000,'Pain and fever. Vet only.'],'Flunixin':['1.1–2.2 mg/kg IV or IM daily, up to 3 days',5000,'Pain and fever. Vet only.'],'Dexamethasone':['Dose set by veterinarian',2000,'Can cause abortion. Do not use in pregnant does.'],'Copper sulphate footbath':['5% solution, stand 5–10 minutes',500,'Foot rot. Keep goats from drinking it.'],'Zinc sulphate footbath':['10% solution, stand 10 minutes',1000,'Foot rot and scald.'],'Oxytetracycline spray':['Spray affected area once or twice daily',3000,'Wounds and foot rot.'],'Gentian violet':['Paint on affected area daily',1000,'Wounds and orf.'],'Iodine 7% navel dip':['Dip the navel within 1 hour of birth',500,'Prevents navel infection.'],'Oral rehydration salts':['Per sachet instructions, small amounts often',1000,'Scours and dehydration.'],'Probiotics':['Per product label',2000,'After antibiotics or scours.']};
+const pr=m=>DB.prices&&DB.prices[m]!=null?DB.prices[m]:MD[m][1];
+function medPick(s){const m=MD[s.value],f=s.form;if(!m)return;f.dose.value=m[0];f.cost.value=pr(s.value);f.details.value=m[2]+(WD[s.value]&&(WD[s.value][0]||WD[s.value][1])?' Withdrawal: milk '+WD[s.value][0]+' days, meat '+WD[s.value][1]+' days (check label).':'')}
+function setPrice(m,v){DB.prices[m]=+v;save()}
+function medGuide(){return `<details class='card' style='margin-top:16px'><summary><b>Medicine guide: dose and price (UGX)</b></summary><p class='mu'>Doses are general guides. Always follow the product label and your veterinarian. Prices are rough estimates per adult-goat treatment: edit them to match your agrovet.</p><div class='wrap'><table><tr><th>Medicine</th><th>Dose guide</th><th>Withdrawal (milk / meat, days)</th><th>Price (UGX)</th></tr>${Object.entries(MED).map(([g,a])=>`<tr><td colspan='4'><b>${g}</b></td></tr>`+a.filter(m=>MD[m]).map(m=>`<tr><td>${m}</td><td style='white-space:normal'>${MD[m][0]}</td><td>${WD[m]?WD[m][0]+' / '+WD[m][1]:'–'}</td><td><input type='number' value='${pr(m)}' style='width:110px' onchange="setPrice('${m}',this.value)"></td></tr>`).join('')).join('')}</table></div></details>`}
+const sx=a=>a.sex=='Doe'?'Female':a.sex=='Buck'?'Male':a.sex;
+const asel=(n,v,r,s)=>`<select name='${n}' ${r}><option value=''>–</option>${DB.animals.filter(a=>(a.status=='Active'&&sx(a)==s)||a.tag==v).map(a=>`<option value='${esc(a.tag)}' ${a.tag==v?'selected':''}>${esc(a.tag)}${a.name?' – '+esc(a.name):''}</option>`).join('')}</select>`;
+const WD={'Albendazole':[3,10],'Fenbendazole':[3,14],'Levamisole':[3,7],'Ivermectin':[28,28],'Moxidectin':[28,14],'Toltrazuril':[7,14],'Amprolium':[0,1],'Sulfadimidine':[7,14],'Oxytetracycline (LA)':[7,28],'Penicillin-Streptomycin':[4,14],'Tylosin':[4,21],'Enrofloxacin':[14,28],'Amitraz dip':[3,7],'Cypermethrin':[3,7],'Deltamethrin':[3,7],'Flumethrin pour-on':[3,7],'Meloxicam':[5,15],'Flunixin':[3,10],'Dexamethasone':[3,7],'Oxytetracycline spray':[3,14]};
+function wd(){const o=[];DB.health.forEach(h=>{const w=WD[h.medicine];if(!w||!h.date)return;const m=add(h.date,w[0]),t=add(h.date,w[1]);const mk=w[0]&&m>=T,mt=w[1]&&t>=T;if(mk||mt)o.push({animal:h.animal,med:h.medicine,milk:mk?m:'',meat:mt?t:''})});return o}
+function wdBanner(){const L=wd().filter(x=>x.milk);return L.length?`<div class='info' style='border-radius:14px;background:#fdecea;border-color:#f3c4be;color:#7a1f16'>⚠ <span>Do not sell or drink milk from: ${L.map(x=>esc(x.animal)+' ('+esc(x.med)+', until '+x.milk+')').join('; ')}</span></div>`:''}
+const RL={admin:'Administrator',supervisor:'Supervisor',worker:'Farm Worker'};
+const ROLE_NAV={admin:['admin','dash','entry','reports','attend','finance','tasks','security','data'],supervisor:['team','dash','entry','reports','attend','tasks','security'],worker:['mytasks','entry','reports','attend','security']};
+const entFor=r=>r=='worker'?ENT.filter(k=>['milk','weights','health','feed'].includes(k)):ENT;
+const entHome=()=>{const e=entFor(ME().role);return e.includes(lastEnt)?lastEnt:e[0]};
+const scope=(k,rows)=>{const me=ME();if(me.role!='worker')return rows;return k=='reports'?rows.filter(r=>r.by==me.name):k=='attend'?rows.filter(r=>r.worker==me.name):rows};
+P.team=`<circle cx='9' cy='8' r='3'/><circle cx='17' cy='9' r='2.5'/><path d='M3 20c0-4 3-6 6-6s6 2 6 6M15 14c3 0 6 1.5 6 5'/>`;
+NAV.unshift(['admin','Admin Dashboard','shield'],['team','Supervisor Dashboard','team']);
+PG.admin=['Admin Dashboard','Manage users and roles and keep an eye on the whole farm.'];PG.team=['Supervisor Dashboard','Assign work and review reports and attendance.'];
+let portal='worker';
+function setPortal(p){portal=p;document.querySelectorAll('.seg button').forEach(b=>b.classList.toggle('on',b.dataset.p==p));document.getElementById('portal').value=p}
+function authDraw(){authDraw0();const sw=document.querySelector('#ac .sw'),n=AU.users().length;
+if(mode=='in'){if(sw)sw.innerHTML=n?'Accounts are created by your FARMIS administrator.':'First time here? <a onclick="setMode(\'up\')">Create the administrator account</a>';
+if(n){const f=document.querySelector('#ac form');f.insertAdjacentHTML('afterbegin',`<div class='seg'>${['worker','supervisor','admin'].map(p=>`<button type='button' data-p='${p}' class='${p==portal?'on':''}' onclick="setPortal('${p}')">${RL[p]}</button>`).join('')}<input type='hidden' id='portal' name='portal' value='${portal}'></div>`)}}
+else{document.querySelector('#ac .sub').textContent='Create the administrator account for your farm.'}}
+const skc=(n,l,s,bg,ic)=>`<div class='sk'><div class='ti' style='background:${bg}'>${SV(ic,'width:28px;height:28px;color:#1b8a3f')}</div><div><b>${n}</b><strong style='display:block;font-weight:600'>${l}</strong><span>${s}</span></div></div>`;
+async function addUser(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target)),em=d.email.trim().toLowerCase(),us=AU.users(),er=document.getElementById('uer');
+if(us.some(u=>u.email==em)){er.textContent='That email already has an account.';return false}
+const salt=rnd(),alg=d.alg||'pbkdf2';us.push({email:em,name:d.name.trim(),role:d.role,alg,salt,h:await hp(d.pw,alg,salt)});saveU(us);draw();return false}
+function setRole(em,r){const us=AU.users(),u=us.find(x=>x.email==em);if(u.email==ME().email&&r!='admin'&&us.filter(x=>(x.role||'admin')=='admin').length<2){alert('Keep at least one administrator.');draw();return}u.role=r;saveU(us);draw()}
+async function resetPw(em){const p=prompt('New temporary password (min 6 characters):');if(!p||p.length<6)return;const us=AU.users(),u=us.find(x=>x.email==em);if(!u.salt)u.alg='pbkdf2';u.salt=rnd();u.h=await hp(p,u.alg,u.salt);saveU(us);alert('Password reset. Share it with the user securely.')}
+function delUser(em){if(em==ME().email){alert('You cannot delete your own account.');return}if(confirm('Delete this account?')){saveU(AU.users().filter(x=>x.email!=em));draw()}}
+function adminPage(){const us=AU.users(),n=r=>us.filter(u=>(u.role||'admin')==r).length;
+const rows=us.map(u=>{const r=u.role||'admin';return `<tr><td>${esc(u.name)}</td><td>${esc(u.email)}</td><td><select onchange="setRole('${esc(u.email)}',this.value)" style='width:auto'>${['admin','supervisor','worker'].map(x=>`<option value='${x}' ${x==r?'selected':''}>${RL[x]}</option>`).join('')}</select></td><td>${u.salt?AL[u.alg]:'SHA-256 (unsalted)'}</td><td><button onclick="resetPw('${esc(u.email)}')">Reset password</button> <button class='del' onclick="delUser('${esc(u.email)}')">Delete</button></td></tr>`}).join('');
+return `<div class='sc'>${skc(us.length,'Total users','All accounts','#e1f4e7','team')}${skc(n('admin'),'Administrators','Full control','#fbf0cc','shield')}${skc(n('supervisor'),'Supervisors','Assign and review','#e4ecfd','assign')}${skc(n('worker'),'Workers','Daily work','#e1f4e7','list')}</div>
+<div class='big' style='min-height:0;margin-bottom:20px'><div class='bh'>${SV('assign','color:#1b8a3f')}Add a user</div><form style='margin-top:14px' onsubmit="return addUser(event)"><label>Full name<input name='name' required></label><label>Email<input name='email' type='email' required></label><label>Role<select name='role'><option value='worker'>Farm Worker</option><option value='supervisor'>Supervisor</option><option value='admin'>Administrator</option></select></label><label>Temporary password<input name='pw' type='password' minlength='6' required></label>${algSel()}<div style='display:flex;align-items:end'><button class='pri'>Add user</button></div></form><div class='er' id='uer'></div></div>
+<div class='big' style='min-height:0'><div class='bh'>Users and roles</div><div class='wrap'><table><tr><th>Name</th><th>Email</th><th>Role</th><th>Password hash</th><th></th></tr>${rows}</table></div><p class='mu'>Accounts are stored in this browser. Download a backup (it includes accounts) to move them to another device.</p></div>
+<div class='bar' style='margin-top:16px'><button onclick="go('dash')">Farm overview</button><button onclick="go('finance')">Transactions</button><button onclick="go('data')">Backup</button></div>`}
+function teamPage(){const tk=DB.tasks,rep=DB.reports.filter(r=>r.date==T),pres=DB.attend.filter(a=>a.date==T&&a.status!='Absent'),od=tk.filter(t=>t.status!='Completed'&&t.due&&t.due<=T),wk=AU.users().filter(u=>u.role=='worker'),c=s=>tk.filter(t=>(t.status||'Open')==s).length;
+const ls2=(t,a,f,to)=>`<div class='card'><h3 style='cursor:pointer' onclick="go('${to}')">${t} ›</h3>${a.length?'<ul>'+a.slice(0,8).map(f).join('')+'</ul>':`<span class='mu'>Nothing yet</span>`}</div>`;
+return `<div class='sc'>${skc(wk.length,'Workers','Team members','#e1f4e7','team')}${skc(c('Open'),'Open tasks','Not started yet','#fbf0cc','list')}${skc(c('In progress'),'In progress','Being worked on','#e4ecfd','clock')}${skc(c('Completed'),'Completed','Finished tasks','#e1f4e7','clip')}${skc(rep.length,'Reports today','Filed today','#e1f4e7','edit')}${skc(pres.length,'Present today','Attendance','#e4ecfd','cal')}</div>
+<div class='bar'><button class='pri' onclick="go('tasks')">Assign a task</button><button onclick="go('reports')">Review reports</button><button onclick="go('attend')">Record attendance</button></div>
+<div class='lists'>${ls2('Overdue tasks',od,t=>`${esc(t.task)} – ${esc(t.who||'unassigned')} (${t.due})`,'tasks')}${ls2('Attendance today',pres,a=>`${esc(a.worker)}: ${esc(a.status)}${a.in?' ('+a.in+')':''}`,'attend')}${ls2('Latest reports',DB.reports.slice(-6).reverse(),r=>`${esc(r.by)}: ${esc(r.summary)}`,'reports')}</div>`}
+ok?enter():showAuth();
+</script></body></html>
